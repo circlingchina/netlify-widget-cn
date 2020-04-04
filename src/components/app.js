@@ -11,38 +11,38 @@ const pagesWithHeader = { login: true, signup: true };
 const pages = {
   login: {
     login: true,
-    button: "Log in",
-    button_saving: "Logging in",
+    button: "登录",
+    button_saving: "登录中...",
     email: true,
     password: true,
     link: "amnesia",
-    link_text: "Forgot password?",
+    link_text: "忘记密码?",
     providers: true
   },
   signup: {
     signup: true,
-    button: "Sign up",
-    button_saving: "Signing Up",
+    button: "注册",
+    button_saving: "注册中...",
     name: true,
     email: true,
     password: true,
     providers: true
   },
   amnesia: {
-    title: "Recover password",
-    button: "Send recovery email",
-    button_saving: "Sending recovery email",
+    title: "找回密码",
+    button: "发送邮件",
+    button_saving: "发送邮件",
     email: true,
     link: "login",
-    link_text: "Never mind"
+    link_text: "返回"
   },
   recovery: {
-    title: "Recover password",
-    button: "Update password",
-    button_saving: "Updating password",
+    title: "找回密码",
+    button: "更新密码",
+    button_saving: "密码更新中...",
     password: true,
     link: "login",
-    link_text: "Never mind"
+    link_text: "取消"
   },
   invite: {
     title: "Complete your signup",
@@ -52,7 +52,7 @@ const pages = {
     providers: true
   },
   user: {
-    title: "Logged in"
+    title: "已登录"
   }
 };
 
@@ -167,13 +167,7 @@ class App extends Component {
       "SAML"
     ].filter(p => store.settings.external[p.toLowerCase()]);
 
-    return providers.length ? (
-      <Providers
-        providers={providers}
-        labels={store.settings.external_labels || {}}
-        onLogin={this.handleExternalLogin}
-      />
-    ) : null;
+    return null;
   }
 
   render() {

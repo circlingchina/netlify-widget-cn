@@ -36,7 +36,7 @@ export default class UserForm extends Component {
                 type="name"
                 name="name"
                 value={name}
-                placeholder={namePlaceholder ? namePlaceholder : "Name"}
+                placeholder={namePlaceholder ? namePlaceholder : "姓名"}
                 autocapitalize="off"
                 required
                 oninput={this.handleInput}
@@ -54,7 +54,7 @@ export default class UserForm extends Component {
                 type="email"
                 name="email"
                 value={email}
-                placeholder="Email"
+                placeholder="邮箱"
                 autocapitalize="off"
                 required
                 oninput={this.handleInput}
@@ -72,7 +72,7 @@ export default class UserForm extends Component {
                 type="password"
                 name="password"
                 value={password}
-                placeholder="Password"
+                placeholder="密码"
                 required
                 oninput={this.handleInput}
               />

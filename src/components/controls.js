@@ -33,7 +33,7 @@ class Controls extends Component {
           href="#"
           onClick={this.handleButton}
         >
-          {this.props.text || (user ? "Log out" : "Log in")}
+          {this.props.text || (user ? "退出登录" : "登录/注册")}
         </a>
       );
     }
@@ -42,7 +42,7 @@ class Controls extends Component {
       return (
         <ul className="netlify-identity-menu">
           <li className="netlify-identity-item netlify-identity-user-details">
-            Logged in as{" "}
+            帐号{" "}
             <span className="netlify-identity-user">
               {user.user_metadata.name || user.email}
             </span>
@@ -53,7 +53,7 @@ class Controls extends Component {
               href="#"
               onClick={this.handleLogout}
             >
-              Log out
+              退出登录
             </a>
           </li>
         </ul>
@@ -68,7 +68,7 @@ class Controls extends Component {
             href="#"
             onClick={this.handleSignup}
           >
-            Sign up
+            注册
           </a>
         </li>
         <li className="netlify-identity-item">
@@ -77,7 +77,7 @@ class Controls extends Component {
             href="#"
             onClick={this.handleLogin}
           >
-            Log in
+            登录
           </a>
         </li>
       </ul>

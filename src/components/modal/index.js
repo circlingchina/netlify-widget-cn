@@ -58,7 +58,7 @@ export default class Modal extends Component {
                     className={`btn btnHeader ${page.signup ? "active" : ""}`}
                     onclick={this.linkHandler("signup")}
                   >
-                    Sign up
+                    注册
                   </button>
                 )}
                 {!devSettings && (
@@ -66,7 +66,7 @@ export default class Modal extends Component {
                     className={`btn btnHeader ${page.login ? "active" : ""}`}
                     onclick={this.linkHandler("login")}
                   >
-                    Log in
+                    登录
                   </button>
                 )}
               </div>
