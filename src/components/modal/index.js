@@ -1,11 +1,13 @@
 import { h, Component } from "preact";
+import translate from "./translate";
 
 function formatError(error) {
-  return (
+  const errStr =  (
     (error.json && error.json.error_description) ||
     error.message ||
     error.toString()
   );
+  return translate(errStr);
 }
 
 export default class Modal extends Component {
