@@ -4,26 +4,26 @@ const messages = {
   confirm: {
     type: "success",
     text:
-      "A confirmation message was sent to your email, click the link there to continue."
+      "确认邮件已发送到注册邮箱，点击确认就可以完成注册了"
   },
   password_mail: {
     type: "success",
     text:
-      "We've sent a recovery email to your account, follow the link there to reset your password."
+      "已发送找回密码的邮件到注册邮箱，点击邮件链接设置新的密码"
   },
   email_changed: {
     type: "sucess",
-    text: "Your email address has been updated!"
+    text: "你的邮箱地址已经更新"
   },
   verfication_error: {
     type: "error",
     text:
-      "There was an error verifying your account. Please try again or contact an administrator."
+      "没有找到用该邮箱注册的账号"
   },
   signup_disabled: {
     type: "error",
     text:
-      "Public signups are disabled. Contact an administrator and ask for an invite."
+      "目前新注册功能已关闭，请联系管理人员获得更多信息"
   }
 };
 
