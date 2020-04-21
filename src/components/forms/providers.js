@@ -12,6 +12,7 @@ class Provider extends Component {
     return (
       <button
         onClick={this.handleLogin}
+        onTouchStart={this.handleLogin}
         className={`provider${provider} btn btnProvider`}
       >
         Continue with {label}

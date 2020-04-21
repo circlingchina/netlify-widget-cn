@@ -44,13 +44,15 @@ export default class Modal extends Component {
         role="dialog"
         aria-hidden={`${hidden}`}
         onClick={this.handleClose}
+        onTouchStart={this.handleClose}
       >
         <div
           className={`modalDialog${loading ? " visuallyHidden" : ""}`}
           onClick={this.blockEvent}
+          onTouchStart={this.blockEvent} 
         >
           <div className="modalContent">
-            <button onclick={this.handleClose} className="btn btnClose">
+            <button onclick={this.handleClose} onTouchStart={this.handleClose}  className="btn btnClose">
               <span className="visuallyHidden">Close</span>
             </button>
             {showHeader && (
@@ -59,6 +61,7 @@ export default class Modal extends Component {
                   <button
                     className={`btn btnHeader ${page.signup ? "active" : ""}`}
                     onclick={this.linkHandler("signup")}
+                    onTouchStart={this.linkHandler("signup")}
                   >
                     注册
                   </button>
@@ -67,6 +70,7 @@ export default class Modal extends Component {
                   <button
                     className={`btn btnHeader ${page.login ? "active" : ""}`}
                     onclick={this.linkHandler("login")}
+                    onTouchStart={this.linkHandler("login")}
                   >
                     登录
                   </button>

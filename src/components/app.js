@@ -127,6 +127,7 @@ class App extends Component {
         {!store.user && page.link && store.gotrue && (
           <button
             onclick={pageLinkHandler}
+            onTouchStart={pageLinkHandler}
             className="btnLink forgotPasswordLink"
           >
             {page.link_text}

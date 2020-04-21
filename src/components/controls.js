@@ -32,6 +32,7 @@ class Controls extends Component {
           className="netlify-identity-button"
           href="#"
           onClick={this.handleButton}
+          onTouchStart={this.handleButton}
         >
           {this.props.text || (user ? "退出登录" : "登录/注册")}
         </a>
@@ -52,6 +53,7 @@ class Controls extends Component {
               className="netlify-identity-logout"
               href="#"
               onClick={this.handleLogout}
+              onTouchStart={this.handleLogout}
             >
               退出登录
             </a>
@@ -67,6 +69,7 @@ class Controls extends Component {
             className="netlify-identity-signup"
             href="#"
             onClick={this.handleSignup}
+            onTouchStart={this.handleSignup}
           >
             注册
           </a>
@@ -76,6 +79,7 @@ class Controls extends Component {
             className="netlify-identity-login"
             href="#"
             onClick={this.handleLogin}
+            onTouchStart={this.handleLogin}
           >
             登录
           </a>
