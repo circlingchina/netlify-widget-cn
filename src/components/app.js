@@ -146,6 +146,7 @@ class App extends Component {
   }
 
   renderProviders() {
+    return null;
     const { store } = this.props;
 
     if (!(store.gotrue && store.settings)) {
@@ -177,6 +178,9 @@ class App extends Component {
     const showSignup = store.settings && !store.settings.disable_signup;
     const page = pages[store.modal.page] || {};
 
+    console.log(store.error);
+    console.log(store.gotrue);
+
     return (
       <div>
         <Modal
@@ -185,7 +189,8 @@ class App extends Component {
           showHeader={showHeader}
           showSignup={showSignup}
           devSettings={!store.gotrue}
-          loading={!store.error && store.gotrue && !store.settings}
+          loading={!store.error && store.gotrue}
+          // loading={!store.error && store.gotrue && !store.settings}
           isOpen={store.modal.isOpen}
           onPage={this.handlePage}
           onClose={this.handleClose}

@@ -4,7 +4,7 @@ const store = observable({
   user: null,
   recovered_user: null,
   message: null,
-  settings: null,
+  settings: true, // for using mocked gotrue
   gotrue: null,
   error: null,
   siteURL: null,
@@ -16,7 +16,7 @@ const store = observable({
   modal: {
     page: "login",
     isOpen: false,
-    logo: true
+    logo: false
   }
 });
 
@@ -36,6 +36,7 @@ store.setError = action(function setError(err) {
 });
 
 store.init = action(function init(gotrue, reloadSettings) {
+
   if (gotrue) {
     store.gotrue = gotrue;
     store.user = gotrue.currentUser();
@@ -43,9 +44,9 @@ store.init = action(function init(gotrue, reloadSettings) {
       store.modal.page = "user";
     }
   }
-  if (reloadSettings) {
-    store.loadSettings();
-  }
+  // if (reloadSettings) {
+  //   store.loadSettings();
+  // }
 });
 
 store.loadSettings = action(function loadSettings() {
