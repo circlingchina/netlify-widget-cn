@@ -143,16 +143,11 @@ store.signup = action(function signup(name, email, password) {
 store.logout = action(function logout() {
   if (store.user) {
     store.startAction();
-    return store.user
-      .logout()
-      .then(
-        action(() => {
-          store.user = null;
-          store.modal.page = "login";
-          store.saving = false;
-        })
-      )
-      .catch(store.setError);
+    store.user = null;
+    store.modal.page = "login";
+    store.saving = false;
+    localStorage.removeItem('circlingchina.user');
+
   } else {
     store.modal.page = "login";
     store.saving = false;

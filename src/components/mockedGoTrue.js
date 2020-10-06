@@ -9,6 +9,8 @@ function isStr(s) {
     return typeof s === 'string' || s instanceof String;
 }
 
+const key = 'circlingchina.user';
+
 class MockedGoTrue {
 
     // acceptInvite(token: string, password: string, remember?: boolean): Promise<User>;
@@ -31,7 +33,11 @@ class MockedGoTrue {
 
     // currentUser(): User | null;
     currentUser() {
-        return this._currentUser || null;
+        const storedUser = localStorage.getItem(key);
+        if (storedUser === null) {
+            return null;
+        }
+        return JSON.parse(storedUser);
     }
 
     _makeFetchOpts(method, payload) {
@@ -51,7 +57,7 @@ class MockedGoTrue {
             method,
             mode: 'cors',
             cache: 'no-cache',
-            credentials: 'same-origin',
+            credentials: 'include',
             headers: {
               'Content-Type': 'application/json'
             },
@@ -65,25 +71,31 @@ class MockedGoTrue {
         return new Promise((resolve, reject) => {
             const url = `${this.apiBase}/auth/token`;
             const payload = { email, password };
-            fetch(url, this._makeFetchOpts('POST', payload)).then(response => {
+
+            const requestOpts = this._makeFetchOpts('POST', payload);
+            requestOpts.headers["X-JWT-AUD"] = "https://www.circlingchina.org";
+
+            fetch(url, requestOpts).then(response => {
                 if (response.ok) {
                     response.json().then(user => {
+                        console.log('user', user);
                         this.currentUser = user;
-                        resolve(this.currentUser);
+                        this._saveUser(user);
+                        resolve(user);
                     });
                 } else {
-                    console.log(new Error('Cannot get login token'));
-                    resolve(null);
-                }
+                    response.json().then(res => {
+                        reject(res.message);
+                    }
+                )}
             });
         });
     }
+
+    _saveUser(user) {
+        localStorage.setItem(key, JSON.stringify(user));
+    }
 }
 
-// let goture = new MockedGoTrue('http://localhost:4567');
-
-// goture.login('ydatylmonv@gmail.com','password').then(
-//    res => console.log(res)
-// )
 
 export default MockedGoTrue;
