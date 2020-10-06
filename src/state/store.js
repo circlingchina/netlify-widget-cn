@@ -157,8 +157,8 @@ store.logout = action(function logout() {
 store.updatePassword = action(function updatePassword(password) {
   store.startAction();
   const user = store.recovered_user || store.user;
-  user
-    .update({ password })
+  store.gotrue
+    .updatePassword(user.id, password)
     .then(user => {
       store.user = user;
       store.recovered_user = null;

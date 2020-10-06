@@ -20,7 +20,7 @@ class MockedGoTrue {
 
     // loginExternalUrl(provider: string): string;
     // recover(token: string, remember?: boolean): Promise<User>;
-    // requestPasswordRecovery(email: string): Promise<void>;
+
     // settings(): Promise<Settings>;
 
     // verify(type: string, token: string, remember?: boolean): Promise<User>;
@@ -100,6 +100,66 @@ class MockedGoTrue {
             const requestOpts = this._makeFetchOpts('POST', payload);
             fetch(url, requestOpts).then(response => {
                 resolve();
+            });
+        })
+    }
+
+    // requestPasswordRecovery(email: string): Promise<void>;
+    requestPasswordRecovery(email) {
+        return new Promise((resolve, reject) => {
+            const url = `${this.apiBase}/auth/passwordRecovery`;
+            const payload = { email };
+
+            const requestOpts = this._makeFetchOpts('POST', payload);
+            fetch(url, requestOpts).then(response => {
+                resolve();
+            });
+        })
+    }
+
+    // recover(token: string, remember?: boolean): Promise<User>;
+    recover(token) {
+        return new Promise((resolve, reject) => {
+            const url = `${this.apiBase}/auth/passwordRecoveryConfirm`;
+            const payload = {token };
+
+            const requestOpts = this._makeFetchOpts('POST', payload);
+            fetch(url, requestOpts).then(response => {
+                if (response.ok) {
+                    response.json().then(user => {
+                        console.log('user', user);
+                        this.currentUser = user;
+                        this._saveUser(user);
+                        resolve(user);
+                    });
+                } else {
+                    response.json().then(res => {
+                        reject(res.message);
+                    }
+                )}
+            });
+        })
+    }
+    // updatePassword(userId: string, password: string): Promise<User>;
+    updatePassword(userId, password) {
+        return new Promise((resolve, reject) => {
+            const url = `${this.apiBase}/auth/passwordRecoveryPerform`;
+            const payload = {userId, password };
+
+            const requestOpts = this._makeFetchOpts('POST', payload);
+            fetch(url, requestOpts).then(response => {
+                if (response.ok) {
+                    response.json().then(user => {
+                        console.log('user', user);
+                        this.currentUser = user;
+                        this._saveUser(user);
+                        resolve(user);
+                    });
+                } else {
+                    response.json().then(res => {
+                        reject(res.message);
+                    }
+                )}
             });
         })
     }
