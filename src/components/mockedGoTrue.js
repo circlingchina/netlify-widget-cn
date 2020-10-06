@@ -22,7 +22,7 @@ class MockedGoTrue {
     // recover(token: string, remember?: boolean): Promise<User>;
     // requestPasswordRecovery(email: string): Promise<void>;
     // settings(): Promise<Settings>;
-    // signup(email: string, password: string, data: any): Promise<void>;
+
     // verify(type: string, token: string, remember?: boolean): Promise<User>;
 
 
@@ -107,6 +107,32 @@ class MockedGoTrue {
     _saveUser(user) {
         localStorage.setItem(key, JSON.stringify(user));
     }
+
+    // verify(type: string, token: string, remember?: boolean): Promise<User>;
+
+    // confirm(token: string, remember?: boolean): Promise<User>;
+    confirm(token, remember) {
+        return new Promise((resolve, reject) => {
+            const url = `${this.apiBase}/auth/confirm`;
+            const payload = { token };
+            const requestOpts = this._makeFetchOpts('POST', payload);
+            fetch(url, requestOpts).then(response => {
+                if (response.ok) {
+                    response.json().then(user => {
+                        console.log('user', user);
+                        this.currentUser = user;
+                        this._saveUser(user);
+                        resolve(user);
+                    });
+                } else {
+                    response.json().then(res => {
+                        reject(res.message);
+                    }
+                )}
+            });
+        });
+    }
+
 }
 
 
