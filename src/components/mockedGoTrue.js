@@ -91,6 +91,18 @@ class MockedGoTrue {
             });
         });
     }
+     // signup(email: string, password: string, data: any): Promise<void>;
+    signup(email, password, data) {
+        return new Promise((resolve, reject) => {
+            const url = `${this.apiBase}/auth/signup`;
+            const payload = { email, password, data };
+
+            const requestOpts = this._makeFetchOpts('POST', payload);
+            fetch(url, requestOpts).then(response => {
+                resolve();
+            });
+        })
+    }
 
     _saveUser(user) {
         localStorage.setItem(key, JSON.stringify(user));
