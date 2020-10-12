@@ -75,8 +75,7 @@ const localHosts = {
 };
 
 function instantiateMockedGoTrue() {
-  const apiBase = 'http://localhost:4567';
-  // const apiBase = 'https://www.circlingchina.org';
+  const apiBase = 'https://api.circlingchina.org';
 
   return new MockedGoTrue(apiBase);
 }
