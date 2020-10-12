@@ -1,11 +1,13 @@
 import { h, render } from "preact";
 import { observe } from "mobx";
 import { Provider } from "mobx-preact";
-import GoTrue from "gotrue-js";
+// import GoTrue from "gotrue-js";
 import App from "./components/app";
 import store from "./state/store";
 import Controls from "./components/controls";
 import modalCSS from "./components/modal.css";
+
+import MockedGoTrue from './components/mockedGoTrue';
 
 const callbacks = {};
 function trigger(callback) {
@@ -72,29 +74,36 @@ const localHosts = {
   "0.0.0.0": true
 };
 
-function instantiateGotrue(APIUrl) {
-  const isLocal = localHosts[document.location.host.split(":").shift()];
-  const siteURL = isLocal && localStorage.getItem("netlifySiteURL");
-  if (APIUrl) {
-    return new GoTrue({ APIUrl, setCookie: !isLocal });
-  }
-  if (isLocal && siteURL) {
-    const parts = [siteURL];
-    if (!siteURL.match(/\/$/)) {
-      parts.push("/");
-    }
-    parts.push(".netlify/identity");
-    store.setIsLocal(isLocal);
-    store.setSiteURL(siteURL);
-    return new GoTrue({ APIUrl: parts.join(""), setCookie: !isLocal });
-  }
-  if (isLocal) {
-    store.setIsLocal(isLocal);
-    return null;
-  }
+function instantiateMockedGoTrue() {
+  const apiBase = 'http://localhost:4567';
+  // const apiBase = 'https://www.circlingchina.org';
 
-  return new GoTrue({ setCookie: !isLocal });
+  return new MockedGoTrue(apiBase);
 }
+
+// function instantiateGotrue(APIUrl) {
+//   const isLocal = localHosts[document.location.host.split(":").shift()];
+//   const siteURL = isLocal && localStorage.getItem("netlifySiteURL");
+//   if (APIUrl) {
+//     return new GoTrue({ APIUrl, setCookie: !isLocal });
+//   }
+//   if (isLocal && siteURL) {
+//     const parts = [siteURL];
+//     if (!siteURL.match(/\/$/)) {
+//       parts.push("/");
+//     }
+//     parts.push(".netlify/identity");
+//     store.setIsLocal(isLocal);
+//     store.setSiteURL(siteURL);
+//     return new GoTrue({ APIUrl: parts.join(""), setCookie: !isLocal });
+//   }
+//   if (isLocal) {
+//     store.setIsLocal(isLocal);
+//     return null;
+//   }
+
+//   return new GoTrue({ setCookie: !isLocal });
+// }
 
 let root;
 let iframe;
@@ -112,9 +121,9 @@ const iframeStyle = {
 };
 
 observe(store.modal, "isOpen", () => {
-  if (!store.settings) {
-    store.loadSettings();
-  }
+  // if (!store.settings) {
+  //   store.loadSettings();
+  // }
   setStyle(iframe, {
     ...iframeStyle,
     display: store.modal.isOpen ? "block !important" : "none"
@@ -126,14 +135,14 @@ observe(store.modal, "isOpen", () => {
   }
 });
 
-observe(store, "siteURL", () => {
-  if (store.siteURL === null || store.siteURL === undefined) {
-    localStorage.removeItem("netlifySiteURL");
-  } else {
-    localStorage.setItem("netlifySiteURL", store.siteURL);
-  }
-  store.init(instantiateGotrue(), true);
-});
+// observe(store, "siteURL", () => {
+//   if (store.siteURL === null || store.siteURL === undefined) {
+//     localStorage.removeItem("netlifySiteURL");
+//   } else {
+//     localStorage.setItem("netlifySiteURL", store.siteURL);
+//   }
+//   store.init(instantiateGotrue(), true);
+// });
 
 observe(store, "user", () => {
   if (store.user) {
@@ -201,7 +210,7 @@ function runRoutes() {
 }
 
 function init(options = {}) {
-  const { APIUrl, logo = true, namePlaceholder } = options;
+  const { APIUrl, logo = false, namePlaceholder } = options;
   const controlEls = document.querySelectorAll(
     "[data-netlify-identity-menu],[data-netlify-identity-button]"
   );
@@ -220,7 +229,9 @@ function init(options = {}) {
     );
   });
 
-  store.init(instantiateGotrue(APIUrl));
+  // store.init(instantiateGotrue(APIUrl));
+
+  store.init(instantiateMockedGoTrue());
   store.modal.logo = logo;
   store.setNamePlaceholder(namePlaceholder);
   iframe = document.createElement("iframe");

@@ -1,5 +1,6 @@
 import { h, Component } from "preact";
 import { connect } from "mobx-preact";
+import GoTrue from "gotrue-js";
 import Modal from "./modal";
 import SiteURLForm from "./forms/siteurl";
 import LogoutForm from "./forms/logout";
@@ -133,19 +134,12 @@ class App extends Component {
             {page.link_text}
           </button>
         )}
-        {store.isLocal ? (
-          <SiteURLForm
-            devMode={store.siteURL != null}
-            onSiteURL={store.siteURL ? this.clearSiteURL : this.handleSiteURL}
-          />
-        ) : (
-          <div />
-        )}
       </div>
     );
   }
 
   renderProviders() {
+    return null;
     const { store } = this.props;
 
     if (!(store.gotrue && store.settings)) {
@@ -184,12 +178,10 @@ class App extends Component {
           error={store.error}
           showHeader={showHeader}
           showSignup={showSignup}
-          devSettings={!store.gotrue}
-          loading={!store.error && store.gotrue && !store.settings}
+          loading={!store.error && store.gotrue}
           isOpen={store.modal.isOpen}
           onPage={this.handlePage}
           onClose={this.handleClose}
-          logo={store.modal.logo}
         >
           {this.renderBody()}
           {this.renderProviders()}

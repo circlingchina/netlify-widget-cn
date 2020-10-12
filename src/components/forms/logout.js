@@ -17,9 +17,7 @@ export default class LogoutForm extends Component {
         <p className="infoText">
           当前用户 <br />
           <span className="infoTextEmail">
-            {user.user_metadata.full_name ||
-              user.user_metadata.name ||
-              user.email}
+            {user.user_metadata.full_name || user.email || user.id}
           </span>
         </p>
         <Button saving={saving} text="退出登录" saving_text="退出登录中..." />
