@@ -9,7 +9,7 @@ const messages = {
   password_mail: {
     type: "success",
     text:
-      "已发送找回密码的邮件到注册邮箱，点击邮件链接设置新的密码"
+      "已发送找回密码的邮件到注册邮箱，请前往注册邮箱，点击邮件链接设置新的密码"
   },
   email_changed: {
     type: "sucess",
