@@ -75,7 +75,7 @@ const localHosts = {
 };
 
 function instantiateMockedGoTrue() {
-  const apiBase = 'https://api.circlingchina.org';
+  const apiBase = 'https://api.circlingquanquan.com';
 
   return new MockedGoTrue(apiBase);
 }

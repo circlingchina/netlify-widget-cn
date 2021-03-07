@@ -73,7 +73,7 @@ class MockedGoTrue {
             const payload = { email, password };
 
             const requestOpts = this._makeFetchOpts('POST', payload);
-            requestOpts.headers["X-JWT-AUD"] = "https://www.circlingchina.org";
+            requestOpts.headers["X-JWT-AUD"] = "https://www.circlingquanquan.com";
 
             fetch(url, requestOpts).then(response => {
                 if (response.ok) {
